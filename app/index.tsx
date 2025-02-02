@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   ScrollView,
   useColorScheme,
+  SafeAreaView,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
@@ -88,89 +89,91 @@ export default function Index() {
   }
 
   return (
-    <ScrollView
-      contentContainerStyle={[
-        styles.container,
-        { backgroundColor: colorScheme === "dark" ? "#1c1c1e" : "#f0f0f0" },
-      ]}
-    >
+    <SafeAreaView style={{ flex: 1 }}>
       <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={[
-            styles.input,
-            {
-              color: colorScheme === "dark" ? "#ffffff" : "#000000",
-              borderColor: colorScheme === "dark" ? "#ffffff" : "gray",
-            },
-          ]}
-          keyboardType="numeric"
-          placeholder="Enter amount"
-          placeholderTextColor={colorScheme === "dark" ? "#a0a0a0" : "#808080"}
-          value={amount}
-          onChangeText={setAmount}
-        />
-        <View style={styles.pickerContainer}>
-          <Picker
-            selectedValue={fromCurrency}
+      <ScrollView
+        contentContainerStyle={[
+          styles.container,
+          { backgroundColor: colorScheme === "dark" ? "#1c1c1e" : "#f0f0f0" },
+        ]}
+      >
+        <View style={styles.inputContainer}>
+          <TextInput
             style={[
-              styles.picker,
+              styles.input,
               {
                 color: colorScheme === "dark" ? "#ffffff" : "#000000",
-                // backgroundColor: colorScheme === "dark" ? "#000000" : "#ffffff",
+                borderColor: colorScheme === "dark" ? "#ffffff" : "gray",
               },
             ]}
-            onValueChange={(itemValue: string) => setFromCurrency(itemValue)}
-          >
-            {currencies.map((currency) => (
-              <Picker.Item
-                key={currency}
-                label={currency}
-                value={currency}
-                color={colorScheme === "dark" ? "#ffffff" : "#000000"}
-                style={{ backgroundColor: colorScheme === "dark" ? "#000000" : "#ffffff" }}
-              />
-            ))}
-          </Picker>
+            keyboardType="numeric"
+            placeholder="Enter amount"
+            placeholderTextColor={colorScheme === "dark" ? "#a0a0a0" : "#808080"}
+            value={amount}
+            onChangeText={setAmount}
+          />
+          <View style={styles.pickerContainer}>
+            <Picker
+              selectedValue={fromCurrency}
+              style={[
+                styles.picker,
+                {
+                  color: colorScheme === "dark" ? "#ffffff" : "#000000",
+                  // backgroundColor: colorScheme === "dark" ? "#000000" : "#ffffff",
+                },
+              ]}
+              onValueChange={(itemValue: string) => setFromCurrency(itemValue)}
+            >
+              {currencies.map((currency) => (
+                <Picker.Item
+                  key={currency}
+                  label={currency}
+                  value={currency}
+                  color={colorScheme === "dark" ? "#ffffff" : "#000000"}
+                  style={{ backgroundColor: colorScheme === "dark" ? "#000000" : "#ffffff" }}
+                />
+              ))}
+            </Picker>
+          </View>
         </View>
-      </View>
-      <View style={styles.inputContainer}>
-        <Text
-          style={[
-            styles.resultText,
-            { color: colorScheme === "dark" ? "#ffffff" : "#000000" },
-          ]}
-        >
-          {convertedAmount}
-        </Text>
-        <View style={styles.pickerContainer}>
-          <Picker
-            selectedValue={toCurrency}
+        <View style={styles.inputContainer}>
+          <Text
             style={[
-              styles.picker,
-              {
-                color: colorScheme === "dark" ? "#ffffff" : "#000000",
-                // backgroundColor: colorScheme === "dark" ? "#000000" : "#ffffff",
-              },
+              styles.resultText,
+              { color: colorScheme === "dark" ? "#ffffff" : "#000000" },
             ]}
-            onValueChange={(itemValue: string) => setToCurrency(itemValue)}
           >
-            {currencies.map((currency) => (
-              <Picker.Item
-                key={currency}
-                label={currency}
-                value={currency}
-                color={colorScheme === "dark" ? "#ffffff" : "#000000"}
-                style={{ backgroundColor: colorScheme === "dark" ? "#000000" : "#ffffff" }}
-              />
-            ))}
-          </Picker>
+            {convertedAmount}
+          </Text>
+          <View style={styles.pickerContainer}>
+            <Picker
+              selectedValue={toCurrency}
+              style={[
+                styles.picker,
+                {
+                  color: colorScheme === "dark" ? "#ffffff" : "#000000",
+                  // backgroundColor: colorScheme === "dark" ? "#000000" : "#ffffff",
+                },
+              ]}
+              onValueChange={(itemValue: string) => setToCurrency(itemValue)}
+            >
+              {currencies.map((currency) => (
+                <Picker.Item
+                  key={currency}
+                  label={currency}
+                  value={currency}
+                  color={colorScheme === "dark" ? "#ffffff" : "#000000"}
+                  style={{ backgroundColor: colorScheme === "dark" ? "#000000" : "#ffffff" }}
+                />
+              ))}
+            </Picker>
+          </View>
         </View>
-      </View>
-      <TouchableOpacity style={styles.button} onPress={convertCurrency}>
-        <Text style={styles.buttonText}>Convert</Text>
-      </TouchableOpacity>
-    </ScrollView>
+        <TouchableOpacity style={styles.button} onPress={convertCurrency}>
+          <Text style={styles.buttonText}>Convert</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -180,6 +183,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     padding: 20,
+    paddingTop: 50,
   },
   inputContainer: {
     flexDirection: "row",
